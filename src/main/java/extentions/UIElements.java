@@ -28,8 +28,8 @@ public class UIElements {
         selectgrade.selectByValue(Value);
 	}
 	
-	public static void PerformDropDownByIndex(WebDriver driver,By locator,int Value) {
+	public static void PerformDropDownByIndex(WebDriver driver,By locator,int value) {
 		Select selectgrade = new Select(driver.findElement(locator));
-        selectgrade.selectByIndex(Value);
+        selectgrade.selectByIndex(value);
 	}
 }

@@ -6,6 +6,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import Pages.CreateEmployee;
+import Pages.Employeelist;
+import Pages.Homepage;
+import Pages.Loginpage;
 import extentions.UIElements;
 
 public class SeleniumTest {
@@ -18,11 +22,40 @@ public class SeleniumTest {
         driver.get("https://eaapp.somee.com/");
         driver.manage().window().maximize();
         
-        // String Username = "kllen";
-        Login(driver);
-        //CreateUsers(driver,Username,"32","50007","58","3","boat@gmail.com");
-        //VerifyEmployee(driver,Username);
-        //Logoff(driver);
+//        // String Username = "kllen";
+//        Login(driver);
+//        //CreateUsers(driver,Username,"32","50007","58","3","boat@gmail.com");
+//        //VerifyEmployee(driver,Username);
+//        //Logoff(driver);
+        
+        Homepage homepage = new Homepage(driver);
+
+        Loginpage loginpage = homepage.Clicklogin();
+
+        homepage = loginpage.performlogin("admin", "password");
+
+        Employeelist employeelist = homepage.ClickEmployeeList();
+
+        CreateEmployee createEmployee = employeelist.ClickCreateBtn();
+
+        // Capture the returned Employee List page
+        employeelist = createEmployee.CreateNewEmp(
+                "Autouser10",
+                "25",
+                "92562",
+                "20",
+                "Junior",
+                "yami@gmail.com"
+        );
+
+        // Search for the employee you just created
+        boolean result = employeelist.VerifyEmployee("Autouser10");
+
+        if (result) {
+            System.out.println("Employee Verified");
+        } else {
+            System.out.println("Employee Not Found");
+        }
         
         driver.quit();
 
